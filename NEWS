@@ -1,3 +1,7 @@
+2.7.0 -
+
+- Exempi is now built using meson.
+
 2.6.5 - 2023/12/24
 
 - Update XMPCore to Adobe XMP SDK v2023.12
