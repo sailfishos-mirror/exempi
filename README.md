@@ -10,8 +10,7 @@ a command line tool.
 
 ## Building
 
-It require at least the gcc 4.6.0 C++ compiler or clang++ with some
-support for C++11, and meson.
+It require gcc or clang with support for C++17, and meson.
 
 To build:
 

@@ -320,4 +320,8 @@ Defines:
    LDFLAGS              = $LDFLAGS
    Thread Local Storage = $ac_cv_tls
    Run unit test        = $ENABLE_UNITTEST
+
+
+   Autoconf buildsystem has been deprecated in favour of meson.
+   Please check the README and switch to meson.
 "
