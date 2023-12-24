@@ -3,7 +3,7 @@ project(
   default_options: [
     'warning_level=3'
   ],
-  version: '2.6.5'
+  version: '2.7.0'
 )
 
 pkg = import('pkgconfig')
@@ -72,7 +72,9 @@ boost_test = dependency('boost', modules: [ 'unit_test_framework' ], required: f
 # 2.6.3 is the revision 9.1.3
 # 2.6.4 is the revision 9.1.4
 # 2.6.5 is the revision 9.1.5
-exempi_revision = 5
+# This is only a build system change.
+# 2.7.0 is the revision 9.1.6
+exempi_revision = 6
 exempi_age = 1
 exempi_current = 9
 # This compute the so "major".
