@@ -1,7 +1,7 @@
 /*
  * exempi - exempi.cpp
  *
- * Copyright (C) 2007-2019 Hubert Figuière
+ * Copyright (C) 2007-2023 Hubert Figuière
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -70,7 +70,7 @@ static void set_error(int err)
 #include <pthread.h>
 
 /* Portable thread local storage using pthreads */
-static pthread_key_t key = NULL;
+static pthread_key_t key = (pthread_key_t)0;
 static pthread_once_t key_once = PTHREAD_ONCE_INIT;
 
 /* Destructor called when a thread exits - ensure to delete allocated int
