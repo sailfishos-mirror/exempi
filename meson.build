@@ -135,6 +135,10 @@ error_checks = compiler.get_supported_arguments(
 )
 add_project_arguments(error_checks, language: 'cpp')
 
+meson.add_dist_script(
+  'build-aux/dist-exclude.sh'
+)
+
 subdir('third-party/zuid/interfaces')
 subdir('source')
 subdir('XMPCore/source')
