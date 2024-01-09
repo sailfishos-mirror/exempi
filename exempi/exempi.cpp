@@ -1,7 +1,7 @@
 /*
  * exempi - exempi.cpp
  *
- * Copyright (C) 2007-2023 Hubert Figuière
+ * Copyright (C) 2007-2024 Hubert Figuière
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -408,6 +408,7 @@ API_EXPORT
 bool xmp_files_can_put_xmp(XmpFilePtr xf, XmpPtr xmp)
 {
     CHECK_PTR(xf, false);
+    CHECK_PTR(xmp, false);
     RESET_ERROR;
     auto txf = reinterpret_cast<SXMPFiles *>(xf);
     bool result = false;
@@ -426,6 +427,7 @@ API_EXPORT
 bool xmp_files_can_put_xmp_xmpstring(XmpFilePtr xf, XmpStringPtr xmp_packet)
 {
   CHECK_PTR(xf, false);
+  CHECK_PTR(xmp_packet, false);
   RESET_ERROR;
   SXMPFiles *txf = reinterpret_cast<SXMPFiles*>(xf);
   bool result = false;
@@ -444,6 +446,7 @@ API_EXPORT
 bool xmp_files_can_put_xmp_cstr(XmpFilePtr xf, const char* xmp_packet, size_t len)
 {
   CHECK_PTR(xf, false);
+  CHECK_PTR(xmp_packet, false);
   RESET_ERROR;
   SXMPFiles *txf = reinterpret_cast<SXMPFiles*>(xf);
   bool result = false;
