@@ -1,4 +1,4 @@
-dnl Copyright (C) 2007-2023 Hubert Figuière
+dnl Copyright (C) 2007-2025 Hubert Figuière
 dnl Small portions are:
 dnl Copyright (C) 2000-2002 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
@@ -73,9 +73,10 @@ dnl 2.6.2 is the revision 9.1.2
 dnl 2.6.3 is the revision 9.1.3
 dnl 2.6.4 is the revision 9.1.4
 dnl 2.6.5 is the revision 9.1.5
+dnl 2.6.6 is the revision 9.1.6
 dnl The significant change is the build system.
-dnl 2.7.0 is the revision 9.1.6
-AC_SUBST([EXEMPI_REVISION], [6])
+dnl 2.7.0 is the revision 9.1.7
+AC_SUBST([EXEMPI_REVISION], [7])
 AC_SUBST([EXEMPI_AGE],      [1])
 AC_SUBST([EXEMPI_CURRENT],  [9])
 AC_SUBST([EXEMPI_CURRENT_MIN],

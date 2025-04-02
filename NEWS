@@ -2,6 +2,17 @@
 
 - Exempi is now built using meson.
 
+2.6.6 - 2025/04/01
+
+- Cherry-pick patch from Adobe XMP SDK v2025.03
+  - Protect from buffer overruns. Fixes:
+    - https://gitlab.freedesktop.org/libopenraw/exempi/-/issues/33
+    - GHSL-2024-083
+    - GHSL-2024-084
+    - GHSL-2024-085
+    - GHSL-2024-086
+    - GHSL-2024-087
+
 2.6.5 - 2023/12/24
 
 - Update XMPCore to Adobe XMP SDK v2023.12
