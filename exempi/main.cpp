@@ -3,7 +3,7 @@
 /*
  * exempi - exempi.cpp
  *
- * Copyright (C) 2011-2020 Hubert Figuière
+ * Copyright (C) 2011-2025 Hubert Figuière
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -287,7 +287,7 @@ static void get_xmp_prop(const char *filename, const std::string &value_name,
 
 static void set_xmp_prop(const char *filename, const std::string &value_name,
                          const std::string &prop_value, bool no_reconcile,
-                         bool is_an_xmp, bool write_in_place, FILE * /*outio*/)
+                         bool is_an_xmp, bool write_in_place, bool wrap_packet, FILE * /*outio*/)
 {
     xmp::ScopedPtr<XmpPtr> xmp(
         get_xmp_from_file(filename, no_reconcile, is_an_xmp));
@@ -307,20 +307,31 @@ static void set_xmp_prop(const char *filename, const std::string &value_name,
     }
 
     if (write_in_place) {
-        xmp::ScopedPtr<XmpFilePtr> f(xmp_files_open_new(
-            filename,
-            (XmpOpenFileOptions)(XMP_OPEN_FORUPDATE |
-                                 (no_reconcile ? XMP_OPEN_ONLYXMP : 0))));
+	if (is_an_xmp) {
+	    FILE *file = fopen(filename, "w");
+	    xmp::ScopedPtr<XmpStringPtr> output = xmp_string_new();
+	    xmp_serialize_and_format(xmp, output,
+				     wrap_packet ? 0 : XMP_SERIAL_OMITPACKETWRAPPER,
+				     0, "\n", " ", 0);
+	    fwrite(xmp_string_cstr(output), 1, xmp_string_len(output), file);
+	    fclose(file);
+	} else {
+	    xmp::ScopedPtr<XmpFilePtr> f(xmp_files_open_new(
+					     filename,
+					     (XmpOpenFileOptions)(
+						 XMP_OPEN_FORUPDATE |
+						 (no_reconcile ? XMP_OPEN_ONLYXMP : 0))));
 
-        if (!xmp_files_can_put_xmp(f, xmp)) {
-            fprintf(stderr, "can put xmp error = %d\n", xmp_get_error());
-        }
-        if (!xmp_files_put_xmp(f, xmp)) {
-            fprintf(stderr, "put xmp error = %d\n", xmp_get_error());
-        }
-        if (!xmp_files_close(f, XMP_CLOSE_SAFEUPDATE)) {
-            fprintf(stderr, "close error = %d\n", xmp_get_error());
-        }
+	    if (!xmp_files_can_put_xmp(f, xmp)) {
+		fprintf(stderr, "can put xmp error = %d\n", xmp_get_error());
+	    }
+	    if (!xmp_files_put_xmp(f, xmp)) {
+		fprintf(stderr, "put xmp error = %d\n", xmp_get_error());
+	    }
+	    if (!xmp_files_close(f, XMP_CLOSE_SAFEUPDATE)) {
+		fprintf(stderr, "close error = %d\n", xmp_get_error());
+	    }
+	}
     }
 }
 
@@ -348,7 +359,7 @@ static void process_file(const char *filename, bool no_reconcile,
         break;
     case ACTION_SET:
         set_xmp_prop(filename, value_name, prop_value, no_reconcile, is_an_xmp,
-                     write_in_place, outio);
+                     write_in_place, wrap_packet, outio);
         break;
     case ACTION_GET:
         get_xmp_prop(filename, value_name, no_reconcile, is_an_xmp, outio);
